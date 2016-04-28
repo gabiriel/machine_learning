@@ -22,7 +22,7 @@ int main()
 	std::vector<double*> myVector;
 	std::vector<double*> errors;
 	
-	// expected 1.0
+	// expected 1.0 = x[3]
 	double x1[xSize] = { 0.0, 0.0, 0.0, valuePlus };
 	double x2[xSize] = { 0.0, 0.0, -2.34, valuePlus };
 	double x3[xSize] = { 3.0, 0.0, -5.27, valuePlus };
@@ -75,7 +75,7 @@ int main()
 }
 
 	vector<double*> calcul_w(vector<double*> myVector, double* w, int size) {
-		double result = 0.0;
+		int result = 0;
 		std::vector<double*> errors;
 
 		while(myVector.size() > 0)
@@ -103,11 +103,11 @@ int main()
 		return errors;
 	}
 
-/*
+
 extern "C"
 {
-*/
-	__declspec(dllexport) double perceptron_lineaire_classification(double* x, double* w, int nb) {
+
+	__declspec(dllexport) int perceptron_lineaire_classification(double* x, double* w, int nb) {
 		double result = 0;
 
 		for (int i = 0; i < nb; i++)
@@ -115,7 +115,7 @@ extern "C"
 			result += x[i] * w[i];
 		}
 
-		return copysign(1.0, result);
+		return copysign(1, result);
 	}
 
 	__declspec(dllexport) void fit_pla(double* x, double* w, int nb, double expected)
@@ -136,13 +136,12 @@ extern "C"
 		}
 	}
 
-	__declspec(dllexport) double perceptron_lineaire_regression(double* x, double* w, int nb) {
+	__declspec(dllexport) int perceptron_lineaire_regression(double* x, double* w, int nb) {
 		return 0;
 	}
 
-/*
 }
-*/
+
 
 
 
